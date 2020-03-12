@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjmju.zj.transport_manage.mapper.SalesmanRebatesMapper" >
+  <resultMap id="BaseResultMap" type="com.mjmju.zj.transport_manage.entity.SalesmanRebates" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="waybill_num" property="waybillNum" jdbcType="VARCHAR" />
+    <result column="record_date" property="recordDate" jdbcType="VARCHAR" />
+    <result column="rebates" property="rebates" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, number, waybill_num, record_date, rebates
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from salesman_rebates
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from salesman_rebates
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mjmju.zj.transport_manage.entity.SalesmanRebates" >
+    insert into salesman_rebates (id, number, waybill_num, 
+      record_date, rebates)
+    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{waybillNum,jdbcType=VARCHAR}, 
+      #{recordDate,jdbcType=VARCHAR}, #{rebates,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mjmju.zj.transport_manage.entity.SalesmanRebates" >
+    insert into salesman_rebates
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="waybillNum != null" >
+        waybill_num,
+      </if>
+      <if test="recordDate != null" >
+        record_date,
+      </if>
+      <if test="rebates != null" >
+        rebates,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillNum != null" >
+        #{waybillNum,jdbcType=VARCHAR},
+      </if>
+      <if test="recordDate != null" >
+        #{recordDate,jdbcType=VARCHAR},
+      </if>
+      <if test="rebates != null" >
+        #{rebates,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mjmju.zj.transport_manage.entity.SalesmanRebates" >
+    update salesman_rebates
+    <set >
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillNum != null" >
+        waybill_num = #{waybillNum,jdbcType=VARCHAR},
+      </if>
+      <if test="recordDate != null" >
+        record_date = #{recordDate,jdbcType=VARCHAR},
+      </if>
+      <if test="rebates != null" >
+        rebates = #{rebates,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mjmju.zj.transport_manage.entity.SalesmanRebates" >
+    update salesman_rebates
+    set number = #{number,jdbcType=VARCHAR},
+      waybill_num = #{waybillNum,jdbcType=VARCHAR},
+      record_date = #{recordDate,jdbcType=VARCHAR},
+      rebates = #{rebates,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

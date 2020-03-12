@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjmju.zj.transport_manage.mapper.CustomerReceiptMapper" >
+  <resultMap id="BaseResultMap" type="com.mjmju.zj.transport_manage.entity.CustomerReceipt" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goods_num" property="goodsNum" jdbcType="VARCHAR" />
+    <result column="receiver" property="receiver" jdbcType="VARCHAR" />
+    <result column="receive_time" property="receiveTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, goods_num, receiver, receive_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer_receipt
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from customer_receipt
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mjmju.zj.transport_manage.entity.CustomerReceipt" >
+    insert into customer_receipt (id, goods_num, receiver, 
+      receive_time)
+    values (#{id,jdbcType=INTEGER}, #{goodsNum,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}, 
+      #{receiveTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mjmju.zj.transport_manage.entity.CustomerReceipt" >
+    insert into customer_receipt
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsNum != null" >
+        goods_num,
+      </if>
+      <if test="receiver != null" >
+        receiver,
+      </if>
+      <if test="receiveTime != null" >
+        receive_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsNum != null" >
+        #{goodsNum,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null" >
+        #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null" >
+        #{receiveTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mjmju.zj.transport_manage.entity.CustomerReceipt" >
+    update customer_receipt
+    <set >
+      <if test="goodsNum != null" >
+        goods_num = #{goodsNum,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null" >
+        receiver = #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null" >
+        receive_time = #{receiveTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mjmju.zj.transport_manage.entity.CustomerReceipt" >
+    update customer_receipt
+    set goods_num = #{goodsNum,jdbcType=VARCHAR},
+      receiver = #{receiver,jdbcType=VARCHAR},
+      receive_time = #{receiveTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="countAll" resultType="Integer">
+    SELECT COUNT(*) FROM customer_receipt
+  </select>
+
+  <select id="selectWithPage" resultType="com.mjmju.zj.transport_manage.entity.CustomerReceipt">
+    SELECT * FROM customer_receipt order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="search" resultType="com.mjmju.zj.transport_manage.entity.CustomerReceipt">
+    select * from customer_receipt
+    <where>
+      <if test="goodsNum != null and goodsNum != ''">
+        and goods_num like '%${goodsNum}%'
+      </if>
+      <if test="receiver != null and receiver != ''">
+        and receiver like '%${receiver}%'
+      </if>
+    </where>
+    order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="countSearch" resultType="Integer">
+    select count(*) from customer_receipt
+    <where>
+      <if test="goodsNum != null and goodsNum != ''">
+        and goods_num like '%${goodsNum}%'
+      </if>
+      <if test="receiver != null and receiver != ''">
+        and receiver like '%${receiver}%'
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByGoodsNum" resultType="com.mjmju.zj.transport_manage.entity.CustomerReceipt">
+    select * from customer_receipt where goods_num = #{goodsNum}
+  </select>
+
+</mapper>

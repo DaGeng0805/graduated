@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjmju.zj.transport_manage.mapper.DetailBillMapper" >
+  <resultMap id="BaseResultMap" type="com.mjmju.zj.transport_manage.entity.DetailBill" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bill_num" property="billNum" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="write_time" property="writeTime" jdbcType="VARCHAR" />
+    <result column="receiver" property="receiver" jdbcType="VARCHAR" />
+    <result column="receiver_phone" property="receiverPhone" jdbcType="VARCHAR" />
+    <result column="distribute_person" property="distributePerson" jdbcType="VARCHAR" />
+    <result column="distribute_person_phone" property="distributePersonPhone" jdbcType="VARCHAR" />
+    <result column="receive_place" property="receivePlace" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, bill_num, status, write_time, receiver, receiver_phone, distribute_person, distribute_person_phone, 
+    receive_place
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from detail_bill
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from detail_bill
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mjmju.zj.transport_manage.entity.DetailBill" >
+    insert into detail_bill (id, bill_num, status, 
+      write_time, receiver, receiver_phone, 
+      distribute_person, distribute_person_phone, 
+      receive_place)
+    values (#{id,jdbcType=INTEGER}, #{billNum,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{writeTime,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}, #{receiverPhone,jdbcType=VARCHAR}, 
+      #{distributePerson,jdbcType=VARCHAR}, #{distributePersonPhone,jdbcType=VARCHAR}, 
+      #{receivePlace,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mjmju.zj.transport_manage.entity.DetailBill" >
+    insert into detail_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="billNum != null" >
+        bill_num,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="writeTime != null" >
+        write_time,
+      </if>
+      <if test="receiver != null" >
+        receiver,
+      </if>
+      <if test="receiverPhone != null" >
+        receiver_phone,
+      </if>
+      <if test="distributePerson != null" >
+        distribute_person,
+      </if>
+      <if test="distributePersonPhone != null" >
+        distribute_person_phone,
+      </if>
+      <if test="receivePlace != null" >
+        receive_place,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="billNum != null" >
+        #{billNum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="writeTime != null" >
+        #{writeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null" >
+        #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null" >
+        #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="distributePerson != null" >
+        #{distributePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="distributePersonPhone != null" >
+        #{distributePersonPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receivePlace != null" >
+        #{receivePlace,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mjmju.zj.transport_manage.entity.DetailBill" >
+    update detail_bill
+    <set >
+      <if test="billNum != null" >
+        bill_num = #{billNum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="writeTime != null" >
+        write_time = #{writeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null" >
+        receiver = #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null" >
+        receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="distributePerson != null" >
+        distribute_person = #{distributePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="distributePersonPhone != null" >
+        distribute_person_phone = #{distributePersonPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receivePlace != null" >
+        receive_place = #{receivePlace,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mjmju.zj.transport_manage.entity.DetailBill" >
+    update detail_bill
+    set bill_num = #{billNum,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      write_time = #{writeTime,jdbcType=VARCHAR},
+      receiver = #{receiver,jdbcType=VARCHAR},
+      receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+      distribute_person = #{distributePerson,jdbcType=VARCHAR},
+      distribute_person_phone = #{distributePersonPhone,jdbcType=VARCHAR},
+      receive_place = #{receivePlace,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="countAll" resultType="Integer">
+    SELECT COUNT(*) FROM detail_bill
+  </select>
+
+  <select id="selectWithPage" resultType="com.mjmju.zj.transport_manage.entity.DetailBill">
+    SELECT * FROM detail_bill order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="selectWithBillNum" resultType="com.mjmju.zj.transport_manage.entity.DetailBill">
+    SELECT * FROM detail_bill where bill_num = #{billNum}
+  </select>
+
+  <select id="search" resultType="com.mjmju.zj.transport_manage.entity.DetailBill">
+    select * from detail_bill
+    <where>
+      <if test="status != null and status != ''">
+        and status=#{status}
+      </if>
+      <if test="billNum != null and billNum != ''">
+        and bill_num=#{billNum}
+      </if>
+      <if test="receiver != null and receiver != ''">
+        and receiver=#{receiver}
+      </if>
+      <if test="sbTime != null and sbTime != ''">
+        and write_time &gt;= #{sbTime}
+      </if>
+      <if test="seTime != null and seTime != ''">
+        and write_time &lt;= #{seTime}
+      </if>
+    </where>
+    order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="searchCount" resultType="Integer">
+    select count(*) from detail_bill
+    <where>
+      <if test="status != null and status != ''">
+        and status=#{status}
+      </if>
+      <if test="billNum != null and billNum != ''">
+        and bill_num=#{billNum}
+      </if>
+      <if test="receiver != null and receiver != ''">
+        and receiver like '%${receiver}%'
+      </if>
+      <if test="sbTime != null and sbTime != ''">
+        and write_time &gt;= #{sbTime}
+      </if>
+      <if test="seTime != null and seTime != ''">
+        and write_time &lt;= #{seTime}
+      </if>
+    </where>
+  </select>
+</mapper>

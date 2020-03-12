@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjmju.zj.transport_manage.mapper.CarrageContractMapper" >
+  <resultMap id="BaseResultMap" type="com.mjmju.zj.transport_manage.entity.CarrageContract" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="contract_num" property="contractNum" jdbcType="VARCHAR" />
+    <result column="begin_place" property="beginPlace" jdbcType="VARCHAR" />
+    <result column="end_place" property="endPlace" jdbcType="VARCHAR" />
+    <result column="driver_name" property="driverName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="cash_deposit" property="cashDeposit" jdbcType="DECIMAL" />
+    <result column="pay_way" property="payWay" jdbcType="TINYINT" />
+    <result column="cash_pledge" property="cashPledge" jdbcType="DECIMAL" />
+    <result column="freight" property="freight" jdbcType="DECIMAL" />
+    <result column="insurance" property="insurance" jdbcType="DECIMAL" />
+    <result column="service_charge" property="serviceCharge" jdbcType="DECIMAL" />
+    <result column="prepay" property="prepay" jdbcType="DECIMAL" />
+    <result column="sign_time" property="signTime" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, contract_num, begin_place, end_place, driver_name, phone, start_time, cash_deposit, 
+    pay_way, cash_pledge, freight, insurance, service_charge, prepay, sign_time, note, 
+    status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from carrage_contract
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from carrage_contract
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mjmju.zj.transport_manage.entity.CarrageContract" >
+    insert into carrage_contract (id, contract_num, begin_place, 
+      end_place, driver_name, phone, 
+      start_time, cash_deposit, pay_way, 
+      cash_pledge, freight, insurance, 
+      service_charge, prepay, sign_time, 
+      note, status)
+    values (#{id,jdbcType=INTEGER}, #{contractNum,jdbcType=VARCHAR}, #{beginPlace,jdbcType=VARCHAR}, 
+      #{endPlace,jdbcType=VARCHAR}, #{driverName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=VARCHAR}, #{cashDeposit,jdbcType=DECIMAL}, #{payWay,jdbcType=TINYINT}, 
+      #{cashPledge,jdbcType=DECIMAL}, #{freight,jdbcType=DECIMAL}, #{insurance,jdbcType=DECIMAL}, 
+      #{serviceCharge,jdbcType=DECIMAL}, #{prepay,jdbcType=DECIMAL}, #{signTime,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mjmju.zj.transport_manage.entity.CarrageContract" >
+    insert into carrage_contract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="contractNum != null" >
+        contract_num,
+      </if>
+      <if test="beginPlace != null" >
+        begin_place,
+      </if>
+      <if test="endPlace != null" >
+        end_place,
+      </if>
+      <if test="driverName != null" >
+        driver_name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="cashDeposit != null" >
+        cash_deposit,
+      </if>
+      <if test="payWay != null" >
+        pay_way,
+      </if>
+      <if test="cashPledge != null" >
+        cash_pledge,
+      </if>
+      <if test="freight != null" >
+        freight,
+      </if>
+      <if test="insurance != null" >
+        insurance,
+      </if>
+      <if test="serviceCharge != null" >
+        service_charge,
+      </if>
+      <if test="prepay != null" >
+        prepay,
+      </if>
+      <if test="signTime != null" >
+        sign_time,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="contractNum != null" >
+        #{contractNum,jdbcType=VARCHAR},
+      </if>
+      <if test="beginPlace != null" >
+        #{beginPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="endPlace != null" >
+        #{endPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="driverName != null" >
+        #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cashDeposit != null" >
+        #{cashDeposit,jdbcType=DECIMAL},
+      </if>
+      <if test="payWay != null" >
+        #{payWay,jdbcType=TINYINT},
+      </if>
+      <if test="cashPledge != null" >
+        #{cashPledge,jdbcType=DECIMAL},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="insurance != null" >
+        #{insurance,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceCharge != null" >
+        #{serviceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="prepay != null" >
+        #{prepay,jdbcType=DECIMAL},
+      </if>
+      <if test="signTime != null" >
+        #{signTime,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mjmju.zj.transport_manage.entity.CarrageContract" >
+    update carrage_contract
+    <set >
+      <if test="contractNum != null" >
+        contract_num = #{contractNum,jdbcType=VARCHAR},
+      </if>
+      <if test="beginPlace != null" >
+        begin_place = #{beginPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="endPlace != null" >
+        end_place = #{endPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="driverName != null" >
+        driver_name = #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cashDeposit != null" >
+        cash_deposit = #{cashDeposit,jdbcType=DECIMAL},
+      </if>
+      <if test="payWay != null" >
+        pay_way = #{payWay,jdbcType=TINYINT},
+      </if>
+      <if test="cashPledge != null" >
+        cash_pledge = #{cashPledge,jdbcType=DECIMAL},
+      </if>
+      <if test="freight != null" >
+        freight = #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="insurance != null" >
+        insurance = #{insurance,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceCharge != null" >
+        service_charge = #{serviceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="prepay != null" >
+        prepay = #{prepay,jdbcType=DECIMAL},
+      </if>
+      <if test="signTime != null" >
+        sign_time = #{signTime,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mjmju.zj.transport_manage.entity.CarrageContract" >
+    update carrage_contract
+    set contract_num = #{contractNum,jdbcType=VARCHAR},
+      begin_place = #{beginPlace,jdbcType=VARCHAR},
+      end_place = #{endPlace,jdbcType=VARCHAR},
+      driver_name = #{driverName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      cash_deposit = #{cashDeposit,jdbcType=DECIMAL},
+      pay_way = #{payWay,jdbcType=TINYINT},
+      cash_pledge = #{cashPledge,jdbcType=DECIMAL},
+      freight = #{freight,jdbcType=DECIMAL},
+      insurance = #{insurance,jdbcType=DECIMAL},
+      service_charge = #{serviceCharge,jdbcType=DECIMAL},
+      prepay = #{prepay,jdbcType=DECIMAL},
+      sign_time = #{signTime,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="countAll" resultType="Integer">
+    SELECT COUNT(*) FROM carrage_contract
+  </select>
+
+  <select id="search" resultType="com.mjmju.zj.transport_manage.entity.CarrageContract">
+    select * from carrage_contract
+    <where>
+      <if test="contractNum != null and contractNum != ''">
+        and contract_num like '%${contractNum}%'
+      </if>
+      <if test="driverName != null and driverName != ''">
+        and driver_name like '%${driverName}%'
+      </if>
+      <if test="beginPlace != null and beginPlace != ''">
+        and begin_place like '%${beginPlace}%'
+      </if>
+      <if test="status != null and status != ''">
+        and status like '%${status}%'
+      </if>
+    </where>
+    order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="countSearch" resultType="Integer">
+    select count(*) from carrage_contract
+    <where>
+      <if test="contractNum != null and contractNum != ''">
+        and contract_num like '%${contractNum}%'
+      </if>
+      <if test="driverName != null and driverName != ''">
+        and driver_name like '%${driverName}%'
+      </if>
+      <if test="beginPlace != null and beginPlace != ''">
+        and begin_place like '%${beginPlace}%'
+      </if>
+      <if test="status != null and status != ''">
+        and status like '%${status}%'
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByContractNum"  resultType="com.mjmju.zj.transport_manage.entity.CarrageContract">
+    select * from carrage_contract where contract_num = #{contractNum}
+  </select>
+
+  <select id="findByContractNum" resultType="String">
+    select contract_num from carrage_contract where contract_num like '%${contractNum}%'
+  </select>
+
+
+</mapper>

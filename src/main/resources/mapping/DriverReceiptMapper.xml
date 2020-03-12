@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjmju.zj.transport_manage.mapper.DriverReceiptMapper" >
+  <resultMap id="BaseResultMap" type="com.mjmju.zj.transport_manage.entity.DriverReceipt" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="contract_num" property="contractNum" jdbcType="VARCHAR" />
+    <result column="driver_name" property="driverName" jdbcType="VARCHAR" />
+    <result column="accepter" property="accepter" jdbcType="VARCHAR" />
+    <result column="check_time" property="checkTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, contract_num, driver_name, accepter, check_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from driver_receipt
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from driver_receipt
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mjmju.zj.transport_manage.entity.DriverReceipt" >
+    insert into driver_receipt (id, contract_num, driver_name, 
+      accepter, check_time)
+    values (#{id,jdbcType=INTEGER}, #{contractNum,jdbcType=VARCHAR}, #{driverName,jdbcType=VARCHAR}, 
+      #{accepter,jdbcType=VARCHAR}, #{checkTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mjmju.zj.transport_manage.entity.DriverReceipt" >
+    insert into driver_receipt
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="contractNum != null" >
+        contract_num,
+      </if>
+      <if test="driverName != null" >
+        driver_name,
+      </if>
+      <if test="accepter != null" >
+        accepter,
+      </if>
+      <if test="checkTime != null" >
+        check_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="contractNum != null" >
+        #{contractNum,jdbcType=VARCHAR},
+      </if>
+      <if test="driverName != null" >
+        #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="accepter != null" >
+        #{accepter,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        #{checkTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mjmju.zj.transport_manage.entity.DriverReceipt" >
+    update driver_receipt
+    <set >
+      <if test="contractNum != null" >
+        contract_num = #{contractNum,jdbcType=VARCHAR},
+      </if>
+      <if test="driverName != null" >
+        driver_name = #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="accepter != null" >
+        accepter = #{accepter,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        check_time = #{checkTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mjmju.zj.transport_manage.entity.DriverReceipt" >
+    update driver_receipt
+    set contract_num = #{contractNum,jdbcType=VARCHAR},
+      driver_name = #{driverName,jdbcType=VARCHAR},
+      accepter = #{accepter,jdbcType=VARCHAR},
+      check_time = #{checkTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="countAll" resultType="Integer">
+    SELECT COUNT(*) FROM driver_receipt
+  </select>
+
+  <select id="selectWithPage" resultType="com.mjmju.zj.transport_manage.entity.DriverReceipt">
+    SELECT * FROM driver_receipt order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="search" resultType="com.mjmju.zj.transport_manage.entity.DriverReceipt">
+    select * from driver_receipt
+    <where>
+      <if test="contractNum != null and contractNum != ''">
+        and contract_num like '%${contractNum}%'
+      </if>
+      <if test="driverName != null and driverName != ''">
+        and driver_name like '%${driverName}%'
+      </if>
+    </where>
+    order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="countSearch" resultType="Integer">
+    select count(*) from driver_receipt
+    <where>
+      <if test="contractNum != null and contractNum != ''">
+        and contract_num like '%${contractNum}%'
+      </if>
+      <if test="driverName != null and driverName != ''">
+        and driver_name like '%${driverName}%'
+      </if>
+    </where>
+  </select>
+  
+  <select id="selectByContractNum" resultType="com.mjmju.zj.transport_manage.entity.DriverReceipt">
+    select * from driver_receipt where contract_num = #{contractNum}
+  </select>
+
+</mapper>

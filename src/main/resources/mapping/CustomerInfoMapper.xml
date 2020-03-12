@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjmju.zj.transport_manage.mapper.CustomerInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.mjmju.zj.transport_manage.entity.CustomerInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, phone, addr
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from customer_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mjmju.zj.transport_manage.entity.CustomerInfo" >
+    insert into customer_info (id, name, phone, 
+      addr)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{addr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mjmju.zj.transport_manage.entity.CustomerInfo" >
+    insert into customer_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="addr != null" >
+        addr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mjmju.zj.transport_manage.entity.CustomerInfo" >
+    update customer_info
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mjmju.zj.transport_manage.entity.CustomerInfo" >
+    update customer_info
+    set name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="countAll" resultType="Integer">
+    SELECT COUNT(*) FROM customer_info
+  </select>
+
+  <select id="selectWithPage" resultType="com.mjmju.zj.transport_manage.entity.CustomerInfo">
+    SELECT * FROM customer_info order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="selectByPhone" resultType="com.mjmju.zj.transport_manage.entity.CustomerInfo">
+    select * from customer_info where phone = #{phone}
+  </select>
+
+  <select id="search" resultType="com.mjmju.zj.transport_manage.entity.CustomerInfo">
+    select * from customer_info
+    <where>
+      <if test="name != null and name != ''">
+        and name like '%${name}%'
+      </if>
+      <if test="phone != null and phone != ''">
+        and phone = #{phone}
+      </if>
+    </where>
+    order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="countSearch" resultType="Integer">
+    select count(*) from customer_info
+    <where>
+      <if test="name != null and name != ''">
+        and name like '%${name}%'
+      </if>
+      <if test="phone != null and phone != ''">
+        and phone = #{phone}
+      </if>
+    </where>
+  </select>
+
+  <select id="findByName" resultType="com.mjmju.zj.transport_manage.entity.DriverInfo">
+    select * from salesman_info
+    <where>
+      <if test="name != null and name != ''">
+        and name like '%${name}%'
+      </if>
+    </where>
+  </select>
+
+</mapper>

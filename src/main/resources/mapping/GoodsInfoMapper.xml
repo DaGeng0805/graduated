@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjmju.zj.transport_manage.mapper.GoodsInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.mjmju.zj.transport_manage.entity.GoodsInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="waybill_num" property="waybillNum" jdbcType="VARCHAR" />
+    <result column="goods_num" property="goodsNum" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="goods_value" property="goodsValue" jdbcType="DECIMAL" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="insurance" property="insurance" jdbcType="DECIMAL" />
+    <result column="freight" property="freight" jdbcType="DECIMAL" />
+    <result column="receiver_name" property="receiverName" jdbcType="VARCHAR" />
+    <result column="begin_place" property="beginPlace" jdbcType="VARCHAR" />
+    <result column="receiver_phone" property="receiverPhone" jdbcType="VARCHAR" />
+    <result column="receiver_addr" property="receiverAddr" jdbcType="VARCHAR" />
+    <result column="end_place" property="endPlace" jdbcType="VARCHAR" />
+    <result column="delivery_time" property="deliveryTime" jdbcType="VARCHAR" />
+    <result column="receive_time" property="receiveTime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="restante" property="restante" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, waybill_num, goods_num, goods_name, number, goods_value, weight, insurance, freight, 
+    receiver_name, begin_place, receiver_phone, receiver_addr, end_place, delivery_time, 
+    receive_time, status, restante
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goods_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mjmju.zj.transport_manage.entity.GoodsInfo" >
+    insert into goods_info (id, waybill_num, goods_num, 
+      goods_name, number, goods_value, 
+      weight, insurance, freight, 
+      receiver_name, begin_place, receiver_phone, 
+      receiver_addr, end_place, delivery_time, 
+      receive_time, status, restante)
+    values (#{id,jdbcType=INTEGER}, #{waybillNum,jdbcType=VARCHAR}, #{goodsNum,jdbcType=VARCHAR}, 
+      #{goodsName,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, #{goodsValue,jdbcType=DECIMAL}, 
+      #{weight,jdbcType=DECIMAL}, #{insurance,jdbcType=DECIMAL}, #{freight,jdbcType=DECIMAL}, 
+      #{receiverName,jdbcType=VARCHAR}, #{beginPlace,jdbcType=VARCHAR}, #{receiverPhone,jdbcType=VARCHAR}, 
+      #{receiverAddr,jdbcType=VARCHAR}, #{endPlace,jdbcType=VARCHAR}, #{deliveryTime,jdbcType=VARCHAR}, 
+      #{receiveTime,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{restante,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mjmju.zj.transport_manage.entity.GoodsInfo" >
+    insert into goods_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="waybillNum != null" >
+        waybill_num,
+      </if>
+      <if test="goodsNum != null" >
+        goods_num,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="goodsValue != null" >
+        goods_value,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="insurance != null" >
+        insurance,
+      </if>
+      <if test="freight != null" >
+        freight,
+      </if>
+      <if test="receiverName != null" >
+        receiver_name,
+      </if>
+      <if test="beginPlace != null" >
+        begin_place,
+      </if>
+      <if test="receiverPhone != null" >
+        receiver_phone,
+      </if>
+      <if test="receiverAddr != null" >
+        receiver_addr,
+      </if>
+      <if test="endPlace != null" >
+        end_place,
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time,
+      </if>
+      <if test="receiveTime != null" >
+        receive_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="restante != null" >
+        restante,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="waybillNum != null" >
+        #{waybillNum,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNum != null" >
+        #{goodsNum,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="goodsValue != null" >
+        #{goodsValue,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="insurance != null" >
+        #{insurance,jdbcType=DECIMAL},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="receiverName != null" >
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="beginPlace != null" >
+        #{beginPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null" >
+        #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverAddr != null" >
+        #{receiverAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="endPlace != null" >
+        #{endPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null" >
+        #{receiveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="restante != null" >
+        #{restante,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mjmju.zj.transport_manage.entity.GoodsInfo" >
+    update goods_info
+    <set >
+      <if test="waybillNum != null" >
+        waybill_num = #{waybillNum,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNum != null" >
+        goods_num = #{goodsNum,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="goodsValue != null" >
+        goods_value = #{goodsValue,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="insurance != null" >
+        insurance = #{insurance,jdbcType=DECIMAL},
+      </if>
+      <if test="freight != null" >
+        freight = #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="receiverName != null" >
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="beginPlace != null" >
+        begin_place = #{beginPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null" >
+        receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverAddr != null" >
+        receiver_addr = #{receiverAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="endPlace != null" >
+        end_place = #{endPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time = #{deliveryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null" >
+        receive_time = #{receiveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="restante != null" >
+        restante = #{restante,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mjmju.zj.transport_manage.entity.GoodsInfo" >
+    update goods_info
+    set waybill_num = #{waybillNum,jdbcType=VARCHAR},
+      goods_num = #{goodsNum,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      goods_value = #{goodsValue,jdbcType=DECIMAL},
+      weight = #{weight,jdbcType=DECIMAL},
+      insurance = #{insurance,jdbcType=DECIMAL},
+      freight = #{freight,jdbcType=DECIMAL},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      begin_place = #{beginPlace,jdbcType=VARCHAR},
+      receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+      receiver_addr = #{receiverAddr,jdbcType=VARCHAR},
+      end_place = #{endPlace,jdbcType=VARCHAR},
+      delivery_time = #{deliveryTime,jdbcType=VARCHAR},
+      receive_time = #{receiveTime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      restante = #{restante,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByWaybill" resultType="com.mjmju.zj.transport_manage.entity.GoodsInfo">
+    select * from goods_info where waybill_num = #{waybillNum} ORDER BY id DESC
+  </select>
+
+  <select id="selectCarrageGoods" resultType="com.mjmju.zj.transport_manage.entity.GoodsInfo">
+    select * from goods_info where begin_place = #{beginPlace} and end_place in (select station_name from transfer_station where flag != 0 and contract_num = #{contractNum})
+  </select>
+
+    <select id="selectByGoodsNum" resultType="com.mjmju.zj.transport_manage.entity.GoodsInfo">
+        select * from goods_info where goods_num = #{goodsNum}
+    </select>
+
+  <select id="findByGoodsNum" resultType="String">
+    select goods_num from goods_info where goods_num like '%${goods_num}%'
+  </select>
+
+
+
+</mapper>

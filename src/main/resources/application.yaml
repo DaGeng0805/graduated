@@ -1,0 +1,64 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: transport_manage
+server:
+  port:
+
+
+---
+
+
+spring:
+  profiles: dev
+  thymeleaf:
+    encoding: UTF-8
+    mode: HTML
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/transport_manage?useUnicode=true&characterEncoding=utf-8&useAffectRows=true
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+    filter:
+      commons-log:
+        connection-log-enabled: false
+        statement-log-enabled: false
+        result-set-log-enabled: true # 表示是否显示结果集。
+        statement-executable-sql-log-enable: true # 表示是否显示SQL语句。
+
+
+mybatis-plus:
+  mapper-locations: classpath:/mapping/*.xml
+  type-aliases-package: com.mjmju.zj.transport_manage.entity
+
+mybatis:
+  mapper-locations: classpath:/mapping/*.xml
+  type-aliases-package: com.mjmju.zj.transport_manage.entity
+
+#  日志打印层级为debug  显示sql语句
+logging:
+  level:
+    com.mjmju.zj.transport_manage: debug
+
+netaddr: http://192.168.137.1:8080/complainAdd

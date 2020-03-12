@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjmju.zj.transport_manage.mapper.TrucksInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.mjmju.zj.transport_manage.entity.TrucksInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="plate_num" property="plateNum" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="driving_licence" property="drivingLicence" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="station_name" property="stationName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, plate_num, type, driving_licence, status, station_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from trucks_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from trucks_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mjmju.zj.transport_manage.entity.TrucksInfo" >
+    insert into trucks_info (id, plate_num, type, 
+      driving_licence, status, station_name
+      )
+    values (#{id,jdbcType=INTEGER}, #{plateNum,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
+      #{drivingLicence,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{stationName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mjmju.zj.transport_manage.entity.TrucksInfo" >
+    insert into trucks_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="plateNum != null" >
+        plate_num,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="drivingLicence != null" >
+        driving_licence,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="stationName != null" >
+        station_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="plateNum != null" >
+        #{plateNum,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="drivingLicence != null" >
+        #{drivingLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="stationName != null" >
+        #{stationName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mjmju.zj.transport_manage.entity.TrucksInfo" >
+    update trucks_info
+    <set >
+      <if test="plateNum != null" >
+        plate_num = #{plateNum,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="drivingLicence != null" >
+        driving_licence = #{drivingLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="stationName != null" >
+        station_name = #{stationName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mjmju.zj.transport_manage.entity.TrucksInfo" >
+    update trucks_info
+    set plate_num = #{plateNum,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      driving_licence = #{drivingLicence,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      station_name = #{stationName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="countAll" resultType="Integer">
+    SELECT COUNT(*) FROM trucks_info
+  </select>
+
+  <select id="selectWithPage" resultType="com.mjmju.zj.transport_manage.entity.TrucksInfo">
+    SELECT * FROM trucks_info order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="search" resultType="com.mjmju.zj.transport_manage.entity.TrucksInfo">
+    select * from trucks_info
+    <where>
+      <if test="type != null">
+        and type = #{type}
+      </if>
+      <if test="status != null">
+        and status = #{status}
+      </if>
+      <if test="stationName != null and stationName != ''">
+        and station_name like '%${stationName}%'
+      </if>
+    </where>
+    order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="countSearch" resultType="Integer">
+    select count(*) from trucks_info
+      <where>
+          <if test="type != null">
+              and type = #{type}
+          </if>
+          <if test="status != null">
+              and status = #{status}
+          </if>
+          <if test="stationName != null and stationName != ''">
+              and station_name like '%${stationName}%'
+          </if>
+      </where>
+  </select>
+
+  <select id="driverSelect" resultType="com.mjmju.zj.transport_manage.entity.TrucksInfo">
+    select * from trucks_info
+    <where>
+      <if test="status != null and status != ''">
+       and status = #{status}
+      </if>
+      <if test="stationName != null and stationName != ''">
+        and station_name = #{stationName}
+      </if>
+      <if test="type != null and type != ''">
+        and type = #{type}
+      </if>
+    </where>
+  </select>
+  
+  <select id="selectByPlateNum" resultType="com.mjmju.zj.transport_manage.entity.TrucksInfo">
+    select * from trucks_info where plate_num = #{plateNum}
+  </select>
+</mapper>

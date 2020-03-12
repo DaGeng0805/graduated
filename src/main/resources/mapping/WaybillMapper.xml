@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjmju.zj.transport_manage.mapper.WaybillMapper" >
+  <resultMap id="BaseResultMap" type="com.mjmju.zj.transport_manage.entity.Waybill" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="waybill_num" property="waybillNum" jdbcType="VARCHAR" />
+    <result column="consign_time" property="consignTime" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="customer_phone" property="customerPhone" jdbcType="VARCHAR" />
+    <result column="customer_addr" property="customerAddr" jdbcType="VARCHAR" />
+    <result column="begin_place" property="beginPlace" jdbcType="VARCHAR" />
+    <result column="freight" property="freight" jdbcType="DECIMAL" />
+    <result column="insurance" property="insurance" jdbcType="DECIMAL" />
+    <result column="pay_way" property="payWay" jdbcType="TINYINT" />
+    <result column="salesman_num" property="salesmanNum" jdbcType="VARCHAR" />
+    <result column="entry_person" property="entryPerson" jdbcType="VARCHAR" />
+    <result column="entry_time" property="entryTime" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, waybill_num, consign_time, customer_name, customer_phone, customer_addr, begin_place, 
+    freight, insurance, pay_way, salesman_num, entry_person, entry_time, note, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from waybill
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from waybill
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mjmju.zj.transport_manage.entity.Waybill" >
+    insert into waybill (id, waybill_num, consign_time, 
+      customer_name, customer_phone, customer_addr, 
+      begin_place, freight, insurance, 
+      pay_way, salesman_num, entry_person, 
+      entry_time, note, status
+      )
+    values (#{id,jdbcType=INTEGER}, #{waybillNum,jdbcType=VARCHAR}, #{consignTime,jdbcType=VARCHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{customerPhone,jdbcType=VARCHAR}, #{customerAddr,jdbcType=VARCHAR}, 
+      #{beginPlace,jdbcType=VARCHAR}, #{freight,jdbcType=DECIMAL}, #{insurance,jdbcType=DECIMAL}, 
+      #{payWay,jdbcType=TINYINT}, #{salesmanNum,jdbcType=VARCHAR}, #{entryPerson,jdbcType=VARCHAR}, 
+      #{entryTime,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mjmju.zj.transport_manage.entity.Waybill" >
+    insert into waybill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="waybillNum != null" >
+        waybill_num,
+      </if>
+      <if test="consignTime != null" >
+        consign_time,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="customerPhone != null" >
+        customer_phone,
+      </if>
+      <if test="customerAddr != null" >
+        customer_addr,
+      </if>
+      <if test="beginPlace != null" >
+        begin_place,
+      </if>
+      <if test="freight != null" >
+        freight,
+      </if>
+      <if test="insurance != null" >
+        insurance,
+      </if>
+      <if test="payWay != null" >
+        pay_way,
+      </if>
+      <if test="salesmanNum != null" >
+        salesman_num,
+      </if>
+      <if test="entryPerson != null" >
+        entry_person,
+      </if>
+      <if test="entryTime != null" >
+        entry_time,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="waybillNum != null" >
+        #{waybillNum,jdbcType=VARCHAR},
+      </if>
+      <if test="consignTime != null" >
+        #{consignTime,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null" >
+        #{customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerAddr != null" >
+        #{customerAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="beginPlace != null" >
+        #{beginPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="insurance != null" >
+        #{insurance,jdbcType=DECIMAL},
+      </if>
+      <if test="payWay != null" >
+        #{payWay,jdbcType=TINYINT},
+      </if>
+      <if test="salesmanNum != null" >
+        #{salesmanNum,jdbcType=VARCHAR},
+      </if>
+      <if test="entryPerson != null" >
+        #{entryPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="entryTime != null" >
+        #{entryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mjmju.zj.transport_manage.entity.Waybill" >
+    update waybill
+    <set >
+      <if test="waybillNum != null" >
+        waybill_num = #{waybillNum,jdbcType=VARCHAR},
+      </if>
+      <if test="consignTime != null" >
+        consign_time = #{consignTime,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null" >
+        customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerAddr != null" >
+        customer_addr = #{customerAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="beginPlace != null" >
+        begin_place = #{beginPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="freight != null" >
+        freight = #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="insurance != null" >
+        insurance = #{insurance,jdbcType=DECIMAL},
+      </if>
+      <if test="payWay != null" >
+        pay_way = #{payWay,jdbcType=TINYINT},
+      </if>
+      <if test="salesmanNum != null" >
+        salesman_num = #{salesmanNum,jdbcType=VARCHAR},
+      </if>
+      <if test="entryPerson != null" >
+        entry_person = #{entryPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="entryTime != null" >
+        entry_time = #{entryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mjmju.zj.transport_manage.entity.Waybill" >
+    update waybill
+    set waybill_num = #{waybillNum,jdbcType=VARCHAR},
+      consign_time = #{consignTime,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      customer_addr = #{customerAddr,jdbcType=VARCHAR},
+      begin_place = #{beginPlace,jdbcType=VARCHAR},
+      freight = #{freight,jdbcType=DECIMAL},
+      insurance = #{insurance,jdbcType=DECIMAL},
+      pay_way = #{payWay,jdbcType=TINYINT},
+      salesman_num = #{salesmanNum,jdbcType=VARCHAR},
+      entry_person = #{entryPerson,jdbcType=VARCHAR},
+      entry_time = #{entryTime,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="countAll" resultType="Integer">
+    SELECT COUNT(*) FROM waybill
+  </select>
+
+  <select id="search" resultType="com.mjmju.zj.transport_manage.entity.Waybill">
+    select * from waybill
+    <where>
+      <if test="waybillNum != null and waybillNum != ''">
+        and waybill_num like '%${waybillNum}%'
+      </if>
+      <if test="customerName != null and customerName != ''">
+        and customer_name like '%${customerName}%'
+      </if>
+      <if test="sbTime != null and sbTime != ''">
+        and consign_time &gt;= #{sbTime}
+      </if>
+      <if test="seTime != null and seTime != ''">
+        and consign_time &lt;= #{seTime}
+      </if>
+      <if test="status != null and status != ''">
+        and status=#{status}
+      </if>
+    </where>
+    order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="countSearch" resultType="Integer">
+    select count(*) from waybill
+    <where>
+      <if test="waybillNum != null and waybillNum != ''">
+        and waybill_num like '%${waybillNum}%'
+      </if>
+      <if test="customerName != null and customerName != ''">
+        and customer_name like '%${customerName}%'
+      </if>
+      <if test="sbTime != null and sbTime != ''">
+        and consign_time &gt;= #{sbTime}
+      </if>
+      <if test="seTime != null and seTime != ''">
+        and consign_time &lt;= #{seTime}
+      </if>
+      <if test="status != null and status != ''">
+        and status=#{status}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByWaybill"  resultType="com.mjmju.zj.transport_manage.entity.Waybill">
+    select * from waybill where waybill_num = #{waybillNum}
+  </select>
+
+</mapper>

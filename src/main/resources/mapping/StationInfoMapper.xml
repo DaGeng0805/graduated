@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjmju.zj.transport_manage.mapper.StationInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.mjmju.zj.transport_manage.entity.StationInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="station_name" property="stationName" jdbcType="VARCHAR" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="manager_name" property="managerName" jdbcType="VARCHAR" />
+    <result column="manager_phone" property="managerPhone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, station_name, addr, manager_name, manager_phone
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from station_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from station_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mjmju.zj.transport_manage.entity.StationInfo" >
+    insert into station_info (id, station_name, addr, 
+      manager_name, manager_phone)
+    values (#{id,jdbcType=INTEGER}, #{stationName,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, 
+      #{managerName,jdbcType=VARCHAR}, #{managerPhone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mjmju.zj.transport_manage.entity.StationInfo" >
+    insert into station_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stationName != null" >
+        station_name,
+      </if>
+      <if test="addr != null" >
+        addr,
+      </if>
+      <if test="managerName != null" >
+        manager_name,
+      </if>
+      <if test="managerPhone != null" >
+        manager_phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stationName != null" >
+        #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="managerName != null" >
+        #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="managerPhone != null" >
+        #{managerPhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mjmju.zj.transport_manage.entity.StationInfo" >
+    update station_info
+    <set >
+      <if test="stationName != null" >
+        station_name = #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="managerName != null" >
+        manager_name = #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="managerPhone != null" >
+        manager_phone = #{managerPhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mjmju.zj.transport_manage.entity.StationInfo" >
+    update station_info
+    set station_name = #{stationName,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      manager_name = #{managerName,jdbcType=VARCHAR},
+      manager_phone = #{managerPhone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findByName" resultType="String">
+    select station_name from station_info where station_name like '%${stationName}%'
+  </select>
+
+  <select id="checkByName" resultType="com.mjmju.zj.transport_manage.entity.StationInfo">
+    select station_name from station_info where station_name like '%${stationName}%'
+  </select>
+
+  <select id="checkOnlyManager" resultType="com.mjmju.zj.transport_manage.entity.StationInfo">
+    select * from station_info where station_name=#{stationName}
+  </select>
+
+  <update id="updateManager">
+    update station_info set manager_name = #{managerName},manager_phone = #{managerPhone} where station_name = #{stationName}
+  </update>
+
+
+
+
+
+  <select id="countAll" resultType="Integer">
+    SELECT COUNT(*) FROM station_info
+  </select>
+
+  <select id="selectWithPage" resultType="com.mjmju.zj.transport_manage.entity.StationInfo">
+    SELECT * FROM station_info order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="search" resultType="com.mjmju.zj.transport_manage.entity.StationInfo">
+    select * from station_info
+    <where>
+      <if test="stationName != null and stationName != ''">
+        and station_name like '%${stationName}%'
+      </if>
+      <if test="managerName != null and managerName != ''">
+        and manager_name like '%${managerName}%'
+      </if>
+    </where>
+    order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="countSearch" resultType="Integer">
+    select count(*) from station_info
+    <where>
+      <if test="stationName != null and stationName != ''">
+        and station_name like '%${stationName}%'
+      </if>
+      <if test="managerName != null and managerName != ''">
+        and manager_name like '%${managerName}%'
+      </if>
+    </where>
+  </select>
+
+
+</mapper>

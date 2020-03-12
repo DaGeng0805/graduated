@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mjmju.zj.transport_manage.mapper.DriverInfoMapper">
+  <resultMap id="BaseResultMap" type="com.mjmju.zj.transport_manage.entity.DriverInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="driver_name" jdbcType="VARCHAR" property="driverName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="licence" jdbcType="VARCHAR" property="licence" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="code_time" jdbcType="VARCHAR" property="codeTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, driver_name, phone, password, licence, code, code_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from driver_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from driver_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mjmju.zj.transport_manage.entity.DriverInfo">
+    insert into driver_info (id, driver_name, phone, 
+      password, licence, code, 
+      code_time)
+    values (#{id,jdbcType=INTEGER}, #{driverName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{licence,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{codeTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mjmju.zj.transport_manage.entity.DriverInfo">
+    insert into driver_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="driverName != null">
+        driver_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="licence != null">
+        licence,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="codeTime != null">
+        code_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="driverName != null">
+        #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="licence != null">
+        #{licence,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="codeTime != null">
+        #{codeTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mjmju.zj.transport_manage.entity.DriverInfo">
+    update driver_info
+    <set>
+      <if test="driverName != null">
+        driver_name = #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="licence != null">
+        licence = #{licence,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="codeTime != null">
+        code_time = #{codeTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mjmju.zj.transport_manage.entity.DriverInfo">
+    update driver_info
+    set driver_name = #{driverName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      licence = #{licence,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      code_time = #{codeTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="countAll" resultType="Integer">
+    SELECT COUNT(*) FROM driver_info
+  </select>
+
+  <select id="selectWithPage" resultType="com.mjmju.zj.transport_manage.entity.DriverInfo">
+    SELECT * FROM driver_info order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="selectByPhone" resultType="com.mjmju.zj.transport_manage.entity.DriverInfo">
+    select * from driver_info where phone = #{phone}
+  </select>
+
+  <select id="search" resultType="com.mjmju.zj.transport_manage.entity.DriverInfo">
+    select * from driver_info
+    <where>
+      <if test="driverName != null and driverName != ''">
+        and driver_name like '%${driverName}%'
+      </if>
+    </where>
+    order by id desc LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="countSearch" resultType="Integer">
+    select count(*) from driver_info
+    <where>
+      <if test="driverName != null and driverName != ''">
+        and driver_name like '%${driverName}%'
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByLicence" resultType="com.mjmju.zj.transport_manage.entity.DriverInfo">
+    select * from driver_info where licence = #{licence}
+  </select>
+
+  <select id="findByName" resultType="com.mjmju.zj.transport_manage.entity.DriverInfo">
+    select * from salesman_info
+    <where>
+      <if test="driverName != null and driverName != ''">
+        and driver_name like '%${driverName}%'
+      </if>
+    </where>
+  </select>
+
+</mapper>

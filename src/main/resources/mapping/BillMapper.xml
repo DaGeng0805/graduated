@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjmju.zj.transport_manage.mapper.BillMapper" >
+  <resultMap id="BaseResultMap" type="com.mjmju.zj.transport_manage.entity.Bill" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="begin_num" property="beginNum" jdbcType="VARCHAR" />
+    <result column="end_num" property="endNum" jdbcType="VARCHAR" />
+    <result column="receiver" property="receiver" jdbcType="VARCHAR" />
+    <result column="receiver_phone" property="receiverPhone" jdbcType="VARCHAR" />
+    <result column="distribute_person" property="distributePerson" jdbcType="VARCHAR" />
+    <result column="distribute_persion_phone" property="distributePersionPhone" jdbcType="VARCHAR" />
+    <result column="tation_name" property="tationName" jdbcType="VARCHAR" />
+    <result column="receive_time" property="receiveTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, begin_num, end_num, receiver, receiver_phone, distribute_person, distribute_persion_phone, 
+    tation_name, receive_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bill
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bill
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mjmju.zj.transport_manage.entity.Bill" >
+    insert into bill (id, begin_num, end_num, 
+      receiver, receiver_phone, distribute_person, 
+      distribute_persion_phone, tation_name, receive_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{beginNum,jdbcType=VARCHAR}, #{endNum,jdbcType=VARCHAR}, 
+      #{receiver,jdbcType=VARCHAR}, #{receiverPhone,jdbcType=VARCHAR}, #{distributePerson,jdbcType=VARCHAR}, 
+      #{distributePersionPhone,jdbcType=VARCHAR}, #{tationName,jdbcType=VARCHAR}, #{receiveTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mjmju.zj.transport_manage.entity.Bill" >
+    insert into bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="beginNum != null" >
+        begin_num,
+      </if>
+      <if test="endNum != null" >
+        end_num,
+      </if>
+      <if test="receiver != null" >
+        receiver,
+      </if>
+      <if test="receiverPhone != null" >
+        receiver_phone,
+      </if>
+      <if test="distributePerson != null" >
+        distribute_person,
+      </if>
+      <if test="distributePersionPhone != null" >
+        distribute_persion_phone,
+      </if>
+      <if test="tationName != null" >
+        tation_name,
+      </if>
+      <if test="receiveTime != null" >
+        receive_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="beginNum != null" >
+        #{beginNum,jdbcType=VARCHAR},
+      </if>
+      <if test="endNum != null" >
+        #{endNum,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null" >
+        #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null" >
+        #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="distributePerson != null" >
+        #{distributePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="distributePersionPhone != null" >
+        #{distributePersionPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="tationName != null" >
+        #{tationName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null" >
+        #{receiveTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mjmju.zj.transport_manage.entity.Bill" >
+    update bill
+    <set >
+      <if test="beginNum != null" >
+        begin_num = #{beginNum,jdbcType=VARCHAR},
+      </if>
+      <if test="endNum != null" >
+        end_num = #{endNum,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null" >
+        receiver = #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null" >
+        receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="distributePerson != null" >
+        distribute_person = #{distributePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="distributePersionPhone != null" >
+        distribute_persion_phone = #{distributePersionPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="tationName != null" >
+        tation_name = #{tationName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null" >
+        receive_time = #{receiveTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mjmju.zj.transport_manage.entity.Bill" >
+    update bill
+    set begin_num = #{beginNum,jdbcType=VARCHAR},
+      end_num = #{endNum,jdbcType=VARCHAR},
+      receiver = #{receiver,jdbcType=VARCHAR},
+      receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+      distribute_person = #{distributePerson,jdbcType=VARCHAR},
+      distribute_persion_phone = #{distributePersionPhone,jdbcType=VARCHAR},
+      tation_name = #{tationName,jdbcType=VARCHAR},
+      receive_time = #{receiveTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="countAll" resultType="Integer">
+    SELECT COUNT(*) FROM bill
+  </select>
+
+  <select id="selectWithPage" resultType="com.mjmju.zj.transport_manage.entity.Bill">
+    SELECT * FROM bill LIMIT
+    <choose>
+      <when test="pages > 0">${(pages - 1)*limit},${limit}</when>
+      <when test="pages == 0">0,${limit}</when>
+    </choose>
+  </select>
+
+  <select id="selectMaxBeginNum" resultType="com.mjmju.zj.transport_manage.entity.Bill">
+    select * from bill where id=(select max(id) from bill)
+  </select>
+</mapper>

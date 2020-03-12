@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="sidebar-menu toggle-others fixed" th:fragment="sideLift">
+
+    <div class="sidebar-menu-inner">
+
+        <header class="logo-env">
+            <!-- logo -->
+            <div class="logo">
+
+                    <h1 style="color:#fffdfe ">智慧物流</h1>
+
+
+                <a href="dashboard-1.html" class="logo-collapsed">
+                    <img src="assets/images/logo-collapsed@2x.png" width="40" alt=""/>
+                </a>
+            </div>
+            <!-- This will toggle the mobile menu and will be visible only on mobile devices -->
+            <div class="mobile-menu-toggle visible-xs">
+                <a href="#" data-toggle="user-info-menu">
+                    <i class="fa-bell-o"></i>
+                    <span class="badge badge-success">7</span>
+                </a>
+
+                <a href="#" data-toggle="mobile-menu">
+                    <i class="fa-bars"></i>
+                </a>
+            </div>
+        </header>
+
+
+        <ul id="main-menu" class="main-menu">
+            <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+            <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+            <li>
+                <a href="dashboard-1.html">
+                    <i class="fa-ticket"></i>
+                    <span class="title">票据管理</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/billAddpage">
+                            <span class="title">分发</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/detailBillQueryPage">
+                            <span class="title">查询</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="dashboard-1.html">
+                    <i class="fa-map-marker"></i>
+                    <span class="title">接货管理</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/waybillAdd">
+                            <span class="title">货运单填写</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/waybillQuery">
+                            <span class="title">货运单查询</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="dashboard-1.html">
+                    <i class="fa-truck"></i>
+                    <span class="title">配车管理</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/carrageAdd">
+                            <span class="title">运输合同填写</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/carrageQuery">
+                            <span class="title">运输合同查询</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="dashboard-1.html">
+                    <i class="fa-check-circle-o"></i>
+                    <span class="title">到货管理</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/checkUnpass/1">
+                            <span class="title">未能过审</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/driverReceipt/1">
+                            <span class="title">司机回执</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/customerReceipt/1">
+                            <span class="title">客户回执</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="dashboard-1.html">
+                    <i class="fa-user"></i>
+                    <span class="title">客户服务</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/complainQuery">
+                            <span class="title">投诉历史</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="dashboard-1.html">
+                    <i class="fa-newspaper-o"></i>
+                    <span class="title">资源信息</span>
+                </a>
+                <ul>
+                    <li th:each="cookie :${#httpServletRequest.getCookies()}"
+                        th:if="${cookie.getName().equals('biggest')}">
+                        <a href="/managerQuery">
+                            <span class="title">负责人信息</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/salesmanQuery">
+                            <span class="title">业务员信息</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/customerQuery">
+                            <span class="title">客户信息</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/stationQuery">
+                            <span class="title">站点信息</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/driverQuery">
+                            <span class="title">司机信息</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/truckQuery">
+                            <span class="title">货车信息</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<nav th:fragment="sideTop">
+    <nav class="navbar user-info-navbar" role="navigation">
+
+        <!-- Left links for user info navbar -->
+        <ul class="user-info-menu left-links list-inline list-unstyled">
+
+            <li class="hidden-sm hidden-xs">
+                <a href="#" data-toggle="sidebar">
+                    <i class="fa-bars"></i>
+                </a>
+            </li>
+
+            <!-- <li class="dropdown hover-line"> -->
+            <!-- 				<a href="#" data-toggle="dropdown">
+                    <i class="fa-envelope-o"></i>
+                    <span class="badge badge-green">15</span>
+                </a> -->
+
+            <ul class="dropdown-menu messages">
+                <li>
+
+                    <ul class="dropdown-menu-list list-unstyled ps-scrollbar">
+
+                        <li class="active">
+                            <!-- "active" class means message is unread -->
+                            <a href="#">
+											<span class="line">
+												<strong>Luc Chartier</strong>
+												<span class="light small">- yesterday</span>
+											</span>
+
+                                <span class="line desc small">
+												This ain’t our first item, it is the best of the rest.
+											</span>
+                            </a>
+                        </li>
+
+                        <li class="active">
+                            <a href="#">
+											<span class="line">
+												<strong>Salma Nyberg</strong>
+												<span class="light small">- 2 days ago</span>
+											</span>
+
+                                <span class="line desc small">
+												Oh he decisively impression attachment friendship so if everything.
+											</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+											<span class="line">
+												Hayden Cartwright
+												<span class="light small">- a week ago</span>
+											</span>
+
+                                <span class="line desc small">
+												Whose her enjoy chief new young. Felicity if ye required likewise so doubtful.
+											</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+											<span class="line">
+												Sandra Eberhardt
+												<span class="light small">- 16 days ago</span>
+											</span>
+
+                                <span class="line desc small">
+												On so attention necessary at by provision otherwise existence direction.
+											</span>
+                            </a>
+                        </li>
+
+                        <!-- Repeated -->
+
+                        <li class="active">
+                            <!-- "active" class means message is unread -->
+                            <a href="#">
+											<span class="line">
+												<strong>Luc Chartier</strong>
+												<span class="light small">- yesterday</span>
+											</span>
+
+                                <span class="line desc small">
+												This ain’t our first item, it is the best of the rest.
+											</span>
+                            </a>
+                        </li>
+
+                        <li class="active">
+                            <a href="#">
+											<span class="line">
+												<strong>Salma Nyberg</strong>
+												<span class="light small">- 2 days ago</span>
+											</span>
+
+                                <span class="line desc small">
+												Oh he decisively impression attachment friendship so if everything.
+											</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+											<span class="line">
+												Hayden Cartwright
+												<span class="light small">- a week ago</span>
+											</span>
+
+                                <span class="line desc small">
+												Whose her enjoy chief new young. Felicity if ye required likewise so doubtful.
+											</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+											<span class="line">
+												Sandra Eberhardt
+												<span class="light small">- 16 days ago</span>
+											</span>
+
+                                <span class="line desc small">
+												On so attention necessary at by provision otherwise existence direction.
+											</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <li class="external">
+                    <a href="blank-sidebar.html">
+                        <span>All Messages</span>
+                        <i class="fa-link-ext"></i>
+                    </a>
+                </li>
+            </ul>
+            </li>
+
+            <!-- <li class="dropdown hover-line"> -->
+            <!-- <a href="#" data-toggle="dropdown">
+                    <i class="fa-bell-o"></i>
+                    <span class="badge badge-purple">7</span>
+                </a> -->
+
+            <ul class="dropdown-menu notifications">
+                <li class="top">
+                    <p class="small">
+                        <a href="#" class="pull-right">Mark all Read</a>
+                        You have <strong>3</strong> new notifications.
+                    </p>
+                </li>
+
+                <li>
+                    <ul class="dropdown-menu-list list-unstyled ps-scrollbar">
+                        <li class="active notification-success">
+                            <a href="#">
+                                <i class="fa-user"></i>
+
+                                <span class="line">
+												<strong>New user registered</strong>
+											</span>
+
+                                <span class="line small time">
+												30 seconds ago
+											</span>
+                            </a>
+                        </li>
+
+                        <li class="active notification-secondary">
+                            <a href="#">
+                                <i class="fa-lock"></i>
+
+                                <span class="line">
+												<strong>Privacy settings have been changed</strong>
+											</span>
+
+                                <span class="line small time">
+												3 hours ago
+											</span>
+                            </a>
+                        </li>
+
+                        <li class="notification-primary">
+                            <a href="#">
+                                <i class="fa-thumbs-up"></i>
+
+                                <span class="line">
+												<strong>Someone special liked this</strong>
+											</span>
+
+                                <span class="line small time">
+												2 minutes ago
+											</span>
+                            </a>
+                        </li>
+
+                        <li class="notification-danger">
+                            <a href="#">
+                                <i class="fa-calendar"></i>
+
+                                <span class="line">
+												John cancelled the event
+											</span>
+
+                                <span class="line small time">
+												9 hours ago
+											</span>
+                            </a>
+                        </li>
+
+                        <li class="notification-info">
+                            <a href="#">
+                                <i class="fa-database"></i>
+
+                                <span class="line">
+												The server is status is stable
+											</span>
+
+                                <span class="line small time">
+												yesterday at 10:30am
+											</span>
+                            </a>
+                        </li>
+
+                        <li class="notification-warning">
+                            <a href="#">
+                                <i class="fa-envelope-o"></i>
+
+                                <span class="line">
+												New comments waiting approval
+											</span>
+
+                                <span class="line small time">
+												last week
+											</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="external">
+                    <a href="#">
+                        <span>View all notifications</span>
+                        <i class="fa-link-ext"></i>
+                    </a>
+                </li>
+            </ul>
+            </li>
+
+        </ul>
+
+
+        <!-- Right links for user info navbar -->
+        <ul class="user-info-menu right-links list-inline list-unstyled">
+
+
+            <li class="dropdown user-profile">
+                <a href="#" data-toggle="dropdown">
+                    <span>
+                        个人信息
+                        <i class="fa-angle-down"></i>
+                    </span>
+                </a>
+
+                <ul class="dropdown-menu user-profile-menu list-unstyled">
+                    <li>
+                        <a href="#edit-profile">
+                            <i class="fa-edit"></i>
+                            修改信息
+                        </a>
+                    </li>
+                    <li class="last">
+                        <a href="extra-lockscreen.html">
+                            <i class="fa-lock"></i>
+                            登出
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</nav>
+<nav th:fragment="sideFoot">
+    <footer class="main-footer sticky footer-type-1">
+
+        <div class="footer-inner">
+
+            <!-- Add your copyright text here -->
+            <div class="footer-text">
+                &copy; 2020
+                <strong>智慧物流</strong>
+                author 郑军
+            </div>
+
+
+            <!-- Go to Top Link, just add rel="go-top" to any link to add this functionality -->
+            <div class="go-up">
+
+                <a href="#" rel="go-top">
+                    <i class="fa-angle-up"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+</nav>
+
+<nav th:fragment="sidePage">
+    <div class="col-xs-6">
+        <div class="dataTables_paginate paging_simple_numbers" id="example-1_paginate">
+            <ul class="pagination">
+                <input type="hidden" th:value="${totalPage}" id="totalPage" name="totalPage">
+                <li><span id="onpage">1</span></li>
+                <li class="paginate_button next" aria-controls="example-1" tabindex="0" id="first"><SPAN>首页</SPAN></li>
+                <li class="paginate_button next" aria-controls="example-1" tabindex="0" id="up"><SPAN>上一页</SPAN></li>
+                <li class="paginate_button next" aria-controls="example-1" tabindex="0" id="down"><SPAN>下一页</SPAN></li>
+                <li class="paginate_button next" aria-controls="example-1" tabindex="0" id="end"><SPAN>尾页</SPAN></li>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="num">
+                </div>
+                <li class="paginate_button next" aria-controls="example-1" tabindex="0" id="go">
+                    <span>跳转</span></li>
+            </ul>
+        </div>
+        </ul>
+    </div>
+</nav>
+</body>
+</html>

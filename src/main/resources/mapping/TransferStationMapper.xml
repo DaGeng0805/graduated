@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjmju.zj.transport_manage.mapper.TransferStationMapper" >
+  <resultMap id="BaseResultMap" type="com.mjmju.zj.transport_manage.entity.TransferStation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="contract_num" property="contractNum" jdbcType="VARCHAR" />
+    <result column="station_name" property="stationName" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, contract_num, station_name, flag, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from transfer_station
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from transfer_station
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mjmju.zj.transport_manage.entity.TransferStation" >
+    insert into transfer_station (id, contract_num, station_name, 
+      flag, status)
+    values (#{id,jdbcType=INTEGER}, #{contractNum,jdbcType=VARCHAR}, #{stationName,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=TINYINT}, #{status,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mjmju.zj.transport_manage.entity.TransferStation" >
+    insert into transfer_station
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="contractNum != null" >
+        contract_num,
+      </if>
+      <if test="stationName != null" >
+        station_name,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="contractNum != null" >
+        #{contractNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stationName != null" >
+        #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mjmju.zj.transport_manage.entity.TransferStation" >
+    update transfer_station
+    <set >
+      <if test="contractNum != null" >
+        contract_num = #{contractNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stationName != null" >
+        station_name = #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mjmju.zj.transport_manage.entity.TransferStation" >
+    update transfer_station
+    set contract_num = #{contractNum,jdbcType=VARCHAR},
+      station_name = #{stationName,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByCarrageNum" resultType="com.mjmju.zj.transport_manage.entity.TransferStation">
+    select from transfer_station where contract_num = #{contractNum} order by flag desc
+  </select>
+</mapper>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:digits="http://www.w3.org/1999/xhtml">
+
+<html>
+<head th:replace="common/sheet::commonHeaderdiv">
+</head>
+<body class="page-body">
+
+<div class="page-container">
+    <div th:replace="~{commons/bars::sideLift}"></div>
+    <div class="main-content">
+        <div th:replace="~{commons/bars::sideTop}"></div>
+        <div class="row" style="background: white;">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="title">货运单填写</h2>
+                        </div>
+                        <div class="panel-body">
+                            <form role="form" class="form-horizontal" th:method="post" onsubmit="return false"
+                                  id="form-insert">
+                                <div class="form-group">
+                                    <input type="hidden"  name="id">
+                                    <label class="col-sm-2 control-label">货运单编号</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="waybillNum" name="waybillNum" placeholder="请输入货运单编号">
+                                        <span id="waybillSpan"></span>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">托运日期</label>
+                                    <div class="col-sm-3">
+                                        <div class="input-group input-group-sm input-group-minimal">
+													<span class="input-group-addon">
+														<i class="fa-tag"></i>
+													</span>
+                                            <input type="text"  name="consign_time" id="consignTime" placeholder="请输入托运日期"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">发货人</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="customerName" name="customerName"
+                                               placeholder="请输入发货人姓名">
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">发货人手机号</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="customerPhone" name="customerPhone"
+                                               placeholder="请输入收货人手机号">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="col-sm-2 control-label">发货人地址</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="customerAddr" name="customerAddr"
+                                               placeholder="请输入发货人地址">
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">发货站点</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" placeholder="请输入发货站点"
+                                               id="beginPlace" name="beginPlace">
+                                        <input type="hidden" class="form-control" placeholder="请输入发货站点"
+                                               id="beginPlaceValue" name="beginPlaceValue">
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">付款方式</label>
+
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="payWay" name="payWay">
+                                            <option value="0">现结</option>
+                                            <option value="1">到付</option>
+                                        </select>
+                                    </div>
+                                    <label class="col-sm-2 control-label">业务员</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="salesman" name="salesman" autocomplete="off"
+                                               placeholder="请输入业务员姓名">
+                                        <!--<input type="hidden"  id="salesmanValue" name="salesmanValue" autocomplete="off" data-provide="typeahead"-->
+                                               <!--placeholder="请输入业务员姓名">-->
+                                        <input type="hidden" class="form-control" placeholder="请输入业务员姓名"
+                                               id="salesmanValue" name="salesmanValue">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">填票人</label>
+
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" placeholder="请输入填票人姓名" id="entryPerson"
+                                               name="entryPerson">
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">填票时间</label>
+                                    <div class="col-sm-3">
+                                        <div class="input-group input-group-sm input-group-minimal">
+													<span class="input-group-addon">
+														<i class="fa-tag"></i>
+													</span>
+                                            <input type="text"  name="entryTime" id="entryTime" placeholder="请输入填票时间"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">备注</label>
+
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" cols="5" id="note" name="note"
+                                        ></textarea>
+                                    </div>
+                                </div>
+                                <center>
+                                    <button class="btn btn-success btn-icon" type="btn-add" onclick="insert1()">
+                                        <i class="fa-plus"></i>
+                                        <span>添&nbsp;&nbsp;&nbsp;加</span>
+                                    </button>
+                                </center>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: Chat Section -->
+
+
+</div>
+<div th:replace="common/sheet::scriptdiv"></div>
+<script src="../assets/js/zj/receive/waybillAdd.js"></script>
+<script>
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#consignTime' //指定元素
+    });
+    laydate.render({
+        elem: '#entryTime' //指定元素
+    });
+
+    $("#beginPlace").typeahead({
+        source: function (query, process) {
+            return $.ajax({
+                url: '/getListStationName/'+query,
+                type: 'get',
+                //data: {name: query},
+                success: function (result) {
+                    console.log(JSON.stringify(result));
+                    return process(result);
+                },
+            });
+        }
+
+    });
+
+    $("#salesman").typeahead({
+        source: function (query, process) {
+            return $.ajax({
+                url: '/salesmanFindByName/'+query,
+                type: 'get',
+                //data: {name: query},
+                success: function (data) {
+                    var resultList = new Array();
+                    for (var i = 0; i < data.length; i++) {
+                        resultList.push(data[i].name+'('+data[i].phone+')');
+                    }
+                    console.log(JSON.stringify(resultList));
+                    return process(resultList);
+                },
+            });
+        }
+    });
+</script>
+</body>
+</html>

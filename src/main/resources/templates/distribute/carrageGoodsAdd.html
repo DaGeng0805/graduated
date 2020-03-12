@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Xenon Boostrap Admin Panel"/>
+    <meta name="author" content=""/>
+
+    <title>Xenon - Login</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arimo:400,700,400italic">
+    <link rel="stylesheet" href="../assets/css/fonts/linecons/css/linecons.css">
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+    <link rel="stylesheet" href="../assets/css/xenon-core.css">
+    <link rel="stylesheet" href="../assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="../assets/css/xenon-components.css">
+    <link rel="stylesheet" href="../assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+
+
+    <!--让他页面加载之后自动绑定事件-->
+    <!--<script type="text/javascript">-->
+    <!--$(function () {-->
+    <!--$('#sellectAll').click(function () {-->
+    <!--if ($(this).prop('checked')) {-->
+    <!--$('#tablelist :checkbox').prop('checked', true)-->
+    <!--} else {-->
+    <!--$('#tablelist :checkbox').prop('checked', false)-->
+    <!--}-->
+    <!--}-->
+    <!--)-->
+    <!--// $("#delete").click(function () {-->
+    <!--//     $("#deleteForm").submit();-->
+    <!--// })-->
+    <!--})-->
+    <!--</script>-->
+
+</head>
+<body class="page-body">
+
+<div class="page-container">
+    <div th:replace="~{commons/bars::sideLift}"></div>
+
+    <div class="main-content">
+        <div th:replace="~{commons/bars::sideTop}"></div>
+
+        <div class="row" style="background: white;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <form id="form-insert" class="form-horizontal">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2 class="title">货物信息</h2>
+                            </div>
+
+
+                            <div class="panel-heading">
+                                <h4 class="title" style="color:red ">已添加货物</h4>
+                            </div>
+
+                            <form role="form" class="form-horizontal">
+                                <table id="addTable" class="table table-striped table-bordered" cellspacing="0"
+                                       width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 20%;">货物单号</th>
+                                        <th style="width: 20%;">货物名称</th>
+                                        <th style="width: 20%;">件数</th>
+                                        <th style="width: 15%;">起点站</th>
+                                        <th style="width: 15%;">到达站</th>
+                                        <th style="width: 20%;" th:if="${checkSend=='false'}">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="addTBody">
+
+                                    </tbody>
+                                </table>
+                                <hr/>
+                                <div id="hidding">
+                                    <div class="panel-heading">
+                                        <h4 class="title" style="color:red ">未添加货物</h4>
+                                    </div>
+                                    <input type="hidden" id="contractNum" th:value="${contractNum}">
+                                    <input type="hidden" id="checkSend" th:value="${checkSend}">
+                                    <table id="tablelist" class="table table-striped table-bordered" cellspacing="0"
+                                           width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 20%;">货物单号</th>
+                                            <th style="width: 20%;">货物名称</th>
+                                            <th style="width: 20%;">剩余件数</th>
+                                            <th style="width: 15%;">起点站</th>
+                                            <th style="width: 15%;">到达站</th>
+                                            <th style="width: 20%;" th:if="${checkSend=='false'}">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="tBody">
+
+                                        </tbody>
+                                    </table>
+                                    <hr/>
+                                    <hr/>
+                                    <hr/>
+                                </div>
+                            </form>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="modal-deleteConfirm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+
+            <div class="modal-body">
+                <!--<form id="numCheck">-->
+                <input type="text" class="form-control t" id="goodsNumber" name="goodsNumber"
+                       placeholder="数量">
+                <!--</form>-->
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" id="confirm" onclick="checkNum(this)">确认</button>
+                <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="common/sheet::scriptdiv"></div>
+<script src="../assets/js/zj/distribute/carrageGoodsAdd.js"></script>
+<div th:replace="~{commons/bars::sideFoot}"></div>
+<script>
+    $("#endPlace").typeahead({
+        source: function (query, process) {
+            return $.ajax({
+                url: '/getListStationName/' + query,
+                type: 'get',
+                //data: {name: query},
+                success: function (result) {
+                    return process(result);
+                },
+            });
+        }
+    });
+
+    laydate.render({
+        elem: '#deliveryTime' //指定元素
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head th:replace="common/sheet::commonHeaderdiv">
+</head>
+<body class="page-body">
+<div class="page-container">
+    <!--<div th:replace="~{commons/bars::sideLift}"></div>-->
+    <div class="main-content">
+        <!--<div th:replace="~{commons/bars::sideTop}"></div>-->
+
+        <div class="row" style="background: white;">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">客户投诉</h3>
+                            <div class="panel-options">
+                                <a href="#" data-toggle="panel">
+                                    <span class="collapse-icon">&ndash;</span>
+                                    <span class="expand-icon">+</span>
+                                </a>
+                                <a href="#" data-toggle="remove">
+                                    &times;
+                                </a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+
+                            <form id="form-insert" class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">投诉货运单号</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" id="waybillNum" name="waybillNum"
+                                               placeholder="请输入货运单号" >
+                                    </div>
+                                </div>
+                                <div style="margin-left: 17%"><span id="waybillNumSpan"></span></div>
+                                <div class="form-group-separator"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">投诉事件详情</label>
+
+                                    <div class="col-sm-7">
+												<textarea class="form-control autogrow" name="content" id="content"
+                                                          data-validate="minlength[10]" rows="5"
+                                                          placeholder="请输入投诉内容"
+                                                          style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 114px;"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-separator"></div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">姓名</label>
+
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="name" name="name"
+                                               placeholder="请输入您的姓名">
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">手机号</label>
+
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="phone" name="phone"
+                                               placeholder="请输入您的电话">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">投诉时间</label>
+
+                                    <div class="col-sm-1">
+                                            <input type="text" class="form-control"
+                                                   placeholder="请输入投诉时间" id="time" name="time"/>
+                                    </div>
+                                </div>
+
+                                <center>
+                                    <button class="btn btn-success btn-icon" type="button" onclick="insert1()">
+                                        <i class="fa-plus"></i>
+                                        <span>添&nbsp;&nbsp;&nbsp;加</span>
+                                    </button>
+                                </center>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="common/sheet::scriptdiv"></div>
+<script src="../assets/js/zj/complain/complainAdd.js"></script>
+<script>
+    laydate.render({
+        elem: '#time' //指定元素
+    });
+</script>
+</body>
+</html>
